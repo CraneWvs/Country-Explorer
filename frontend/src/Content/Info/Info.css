@@ -1,0 +1,22 @@
+/* 在 Info/Info.css 文件中 */
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* 填满 info-area */
+  }
+  
+  .search-bar {
+    flex-shrink: 0; /* 确保搜索栏不会因为滚动条而缩小 */
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .countries-list, .info-display {
+    overflow-y: auto; /* 允许在内容过多时滚动 */
+    max-height: calc(100% - 60px); /* 假设 search-bar 高度约为60px，根据实际调整 */
+  }
+  
+  /* 其他样式保持不变 */
+  
