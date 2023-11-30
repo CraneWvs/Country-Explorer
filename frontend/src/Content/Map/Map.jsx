@@ -35,7 +35,7 @@ function Map({selectedCountryISO, setSelectedCountryISO}) {
 
     const selectedStyle = {
         fillColor: "#F0ECE5",
-        fillOpacity: 0.7,
+        fillOpacity: 0.3,
         weight: 3,
         color: 'black',
         dashArray: '',

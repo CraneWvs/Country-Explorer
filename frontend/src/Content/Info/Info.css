@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     height: 100%; /* 填满 info-area */
+    align-content: center;
+    /* justify-content: center; */
   }
   
   .search-bar {
@@ -14,6 +16,8 @@
   }
   
   .countries-list, .info-display {
+    
+    margin: auto;
     overflow-y: auto; /* 允许在内容过多时滚动 */
     max-height: calc(100% - 60px); /* 假设 search-bar 高度约为60px，根据实际调整 */
   }

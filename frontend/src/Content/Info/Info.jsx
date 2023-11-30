@@ -26,7 +26,7 @@ const Info = ({selectedCountryISO, setSelectedCountryISO}) => {
     setShowDetails(true);  // 隐藏详情
     setError(null);
     try {
-      const response = await fetch(`https://restcountries.com/v3.1/alpha/${selectedCountryISO}`);
+      const response = await fetch(`http://localhost:3001/api/countries/code/${selectedCountryISO}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       // setCountries(data);
@@ -56,7 +56,8 @@ useEffect(() => {
     setShowDetails(false);  // 隐藏详情
     setError(null);
     try {
-      const response = await fetch(`https://restcountries.com/v3.1/name/${countryQuery}`);
+      // const response = await fetch(`https://restcountries.com/v3.1/name/${countryQuery}`);
+      const response = await fetch(`http://localhost:3001/api/countries/name/${countryQuery}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       setCountries(data);
