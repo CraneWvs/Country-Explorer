@@ -1,6 +1,6 @@
 # About
 
-A helper app to find country informations including a search bar and an interactive map.
+A React+Express app to find country informations including a search bar and an interactive map.
 
 ![home](https://github.com/CraneWvs/Pictures/blob/main/Country-Explorer/home.png)
 
