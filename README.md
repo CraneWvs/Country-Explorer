@@ -7,7 +7,7 @@ A React+Express app to find country informations including a search bar and an i
 
 ![detail](https://github.com/CraneWvs/Pictures/blob/main/Country-Explorer/detail.png)
 
-![list](https://github.com/CraneWvs/Pictures/blob/main/Country-Explorer/list.png)
+![list](https://github.com/CraneWvs/Pictures/blob/main/Country-Explorer/list-new.png)
 
 # Setup
 *Note: Node.js required for local running.*
