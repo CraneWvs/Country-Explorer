@@ -1,5 +1,3 @@
-// 在 Info/CountryDetailCard.jsx 文件中
-
 import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,7 +12,7 @@ const CountryDetailCard = ({ country }) => {
       return "N/A";
     }
     const currencyCodes = Object.keys(country.currencies);
-    return currencyCodes.join(" ");
+    return currencyCodes.join(", ");
   };
 
   const renderLanguages = () => {

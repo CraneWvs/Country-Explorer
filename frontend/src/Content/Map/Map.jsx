@@ -7,39 +7,36 @@ import 'leaflet/dist/leaflet.css';
 
 function Map({selectedCountryISO, setSelectedCountryISO}) {
 
-    // The map container div
     const mapRef = useRef(null);
-    // Map instance
     const mapInstanceRef = useRef(null);
     const layerMappingRef = useRef({});
-
     const [selectedCountryMap, setSelectedCountryMap] = useState(null);
     const selectedCountryMapRef = useRef(null);
 
     const defaultStyle = {
-        fillColor: "#B6BBC4",
-        weight: 2,
+        fillColor: "#2596be",
+        weight: 0.5,
         opacity: 1,
-        color: "black",
-        fillOpacity: 0.7
+        color: "white",
+        fillOpacity: 0.5
     };
       
     const hoverStyle = {
-        fillColor: "#C5FFF8",
+        fillColor: "#1976d2",
         fillOpacity: 0.7,
-        weight: 3,
-        color: 'black',
+        weight: 0.5,
+        color: 'white',
         dashArray: '',
-        opacity: 1
+        opacity: 0.5
     };
 
     const selectedStyle = {
         fillColor: "#F0ECE5",
-        fillOpacity: 0.3,
+        fillOpacity: 0.2,
         weight: 3,
         color: 'black',
         dashArray: '',
-        opacity: 0.3
+        opacity: 0.2
     };  
 
     useEffect(() => {
@@ -49,11 +46,8 @@ function Map({selectedCountryISO, setSelectedCountryISO}) {
         let iso_a3_id = null;
         if (selectedCountryMap) {
             iso_a3_id = selectedCountryMap.feature.properties.iso_a3;
-            console.log("here:", iso_a3_id);
-            
         }
         setSelectedCountryISO(iso_a3_id);
-  
     }, [selectedCountryMap]);
 
     useEffect(() => {
@@ -65,8 +59,8 @@ function Map({selectedCountryISO, setSelectedCountryISO}) {
         }
         const newLayer = layerMappingRef.current[selectedCountryISO];
         
-        setSelectedCountryMap(newLayer); // 更新 state
-        selectedCountryMapRef.current = newLayer; // 更新 ref
+        setSelectedCountryMap(newLayer);
+        selectedCountryMapRef.current = newLayer;
         if (newLayer) {
             newLayer.setStyle(selectedStyle);
             mapInstanceRef.current.fitBounds(newLayer.getBounds());
@@ -109,8 +103,8 @@ function Map({selectedCountryISO, setSelectedCountryISO}) {
                             selectedCountryMapRef.current.setStyle(defaultStyle);
                           }                          
                           e.target.setStyle(selectedStyle);
-                          setSelectedCountryMap(e.target); // 更新 state
-                          selectedCountryMapRef.current = e.target; // 更新 ref
+                          setSelectedCountryMap(e.target);
+                          selectedCountryMapRef.current = e.target;
                           map.fitBounds(e.target.getBounds());
                         }
                       });

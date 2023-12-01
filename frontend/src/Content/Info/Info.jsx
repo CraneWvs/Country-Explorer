@@ -5,6 +5,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import CountryCard from './CountryCard';
 import CountryDetailCard from './CountryDetailCard';
 import './Info.css';
+import { Typography } from '@mui/material';
+
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 
 const Info = ({selectedCountryISO, setSelectedCountryISO}) => {
   const [countryQuery, setCountryQuery] = useState('');
@@ -12,7 +16,9 @@ const Info = ({selectedCountryISO, setSelectedCountryISO}) => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showDetails, setShowDetails] = useState(false);  // 新的状态变量
+  const [showDetails, setShowDetails] = useState(false);
+
+  
 
   const handleISOChange = async () => {
     if (!selectedCountryISO) {
@@ -23,13 +29,12 @@ const Info = ({selectedCountryISO, setSelectedCountryISO}) => {
     }
 
     setLoading(true);
-    setShowDetails(true);  // 隐藏详情
+    setShowDetails(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:3001/api/countries/code/${selectedCountryISO}`);
+      const response = await fetch(`${baseURL}/api/countries/code/${selectedCountryISO}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      // setCountries(data);
       setSelectedCountry(data[0]);
     } catch (error) {
       setError('Failed to fetch data');
@@ -39,10 +44,10 @@ const Info = ({selectedCountryISO, setSelectedCountryISO}) => {
     }
   };
 
-useEffect(() => {
-    handleISOChange();
+  useEffect(() => {
+      handleISOChange();
 
-}, [selectedCountryISO]);
+  }, [selectedCountryISO]);
 
   const handleSearch = async () => {
     if (!countryQuery) {
@@ -53,11 +58,10 @@ useEffect(() => {
     }
 
     setLoading(true);
-    setShowDetails(false);  // 隐藏详情
+    setShowDetails(false);
     setError(null);
     try {
-      // const response = await fetch(`https://restcountries.com/v3.1/name/${countryQuery}`);
-      const response = await fetch(`http://localhost:3001/api/countries/name/${countryQuery}`);
+      const response = await fetch(`${baseURL}/api/countries/name/${countryQuery}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       setCountries(data);
@@ -72,14 +76,51 @@ useEffect(() => {
 
   const handleSelectCountry = (country) => {
     setSelectedCountry(country);
-    setShowDetails(true);  // 显示详情并隐藏国家列表
+    setShowDetails(true);
     setSelectedCountryISO(country.cca3);
   };
 
   const handleBackToList = () => {
-    setShowDetails(false);  // 显示国家列表
+    setShowDetails(false);
     setSelectedCountry(null);
-    // setSelectedCountryISO(null);
+  };
+
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="info-display">
+        <CircularProgress />
+        </div>
+      )
+    }
+    if (error) {
+      return (
+        <div className="info-display">
+          <Typography variant='h5'>Something Wrong Happened...</Typography>
+          <Typography variant='h6'>( {error})</Typography>
+      </div>
+      );
+    }
+
+    if (showDetails) {
+      return (
+        <div className="info-display">
+        {selectedCountry && <CountryDetailCard country={selectedCountry} />}
+        <Button variant="text" onClick={handleBackToList}>
+          Back
+        </Button>
+      </div>
+      );
+    }
+
+    return (
+      <div className="countries-list">
+      {countries.map((country, index) => (
+        <CountryCard key={index} country={country} onSelect={handleSelectCountry} />
+      ))}
+    </div>
+    );
+
   };
 
   return (
@@ -96,22 +137,7 @@ useEffect(() => {
           {loading ? <CircularProgress size={24} /> : 'Search'}
         </Button>
       </div>
-      {showDetails ? (
-        <div className="info-display">
-          {selectedCountry && <CountryDetailCard country={selectedCountry} />}
-          <Button variant="text" onClick={handleBackToList}>
-            Back
-          </Button>
-        </div>
-      ) : (
-        <div className="countries-list">
-          {loading && <CircularProgress />}
-          {error && <div>Error: {error}</div>}
-          {countries.map((country, index) => (
-            <CountryCard key={index} country={country} onSelect={handleSelectCountry} />
-          ))}
-        </div>
-      )}
+      {renderContent()}
     </div>
   );
 };
