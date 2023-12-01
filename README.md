@@ -1,6 +1,7 @@
 # About
 
 Online URL: [click here](https://earnest-lollipop-404cf1.netlify.app/)
+
 A React+Express app to find country informations including a search bar and an interactive map.
 
 ![home](https://github.com/CraneWvs/Pictures/blob/main/Country-Explorer/home.png)
